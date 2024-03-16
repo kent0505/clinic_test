@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader_state.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/action_modal_body.dart';
@@ -130,14 +131,7 @@ class _AllEventsState extends State<AllEvents>
 
   Widget buildActionsCards({required HomeProvider homeProvider}) {
     if (homeProvider.actionList.isEmpty) {
-      return const Center(
-        child: Text(
-          'Нет элементов :(',
-          style: TextStyle(
-            color: Color(0xff66788C),
-          ),
-        ),
-      );
+      return const NoDataWidget();
     }
 
     if (homeProvider.loading) {
@@ -178,14 +172,7 @@ class _AllEventsState extends State<AllEvents>
 
   Widget buildNewsCards({required HomeProvider homeProvider}) {
     if (homeProvider.newsList.isEmpty) {
-      return const Center(
-        child: Text(
-          'Нет элементов :(',
-          style: TextStyle(
-            color: Color(0xff66788C),
-          ),
-        ),
-      );
+      return const NoDataWidget();
     }
 
     if (homeProvider.loading) {
@@ -226,14 +213,7 @@ class _AllEventsState extends State<AllEvents>
 
   Widget buildEventsCard({required HomeProvider homeProvider}) {
     if (homeProvider.eventList.isEmpty) {
-      return const Center(
-        child: Text(
-          'Нет элементов :(',
-          style: TextStyle(
-            color: Color(0xff66788C),
-          ),
-        ),
-      );
+      return const NoDataWidget();
     }
 
     if (homeProvider.loading) {

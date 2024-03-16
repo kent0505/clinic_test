@@ -3,7 +3,6 @@ import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader_state.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/equipment_modal_body.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_modal_bottom.dart';
-import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/features/main/domain/state/home_provider.dart';
 import 'package:sadykova_app/features/main/ui/widgets/equepment_card.dart';
 import 'package:provider/provider.dart';
@@ -22,25 +21,24 @@ class _EquepmentScreenState extends State<EquepmentScreen> {
 
   @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance?.addPostFrameCallback(
       (timeStamp) {
         var homeProvider = Provider.of<HomeProvider>(context, listen: false);
         homeProvider.getEquipments();
       },
     );
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final HomeProvider homeProvider = Provider.of<HomeProvider>(context);
+    final homeProvider = Provider.of<HomeProvider>(context);
 
     if (homeProvider.loading) {
       return const LoaderState();
     }
 
     return Scaffold(
-      backgroundColor: kBgColor,
       appBar: customAppBar(
         () {
           Navigator.pop(context);

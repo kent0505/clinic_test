@@ -82,7 +82,7 @@ class CitySelectModalState extends State<CitySelectModal> {
                     color: const Color(0xff66788C).withOpacity(0.4),
                     height: 0.5,
                   ),
-                  buildCityItem("Набережные Челны"),
+                  buildCityItem("Москва"),
                 ],
               ),
             ),
@@ -98,9 +98,10 @@ class CitySelectModalState extends State<CitySelectModal> {
         setState(() {
           selectedCity = text;
         });
-        await Future.delayed(const Duration(milliseconds: 300)).then(
-          (value) => Navigator.pop(context, selectedCity),
-        );
+        Navigator.pop(context, selectedCity);
+        // await Future.delayed(const Duration(milliseconds: 300)).then(
+        //   (value) => Navigator.pop(context, selectedCity),
+        // );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),

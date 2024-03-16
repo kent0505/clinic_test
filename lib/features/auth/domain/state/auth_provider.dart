@@ -56,10 +56,8 @@ class AuthProvider extends ChangeNotifier {
       log(convertPhoneNumber(_userProvider!.phoneController.text));
 
       var result = await repository.confirmPhone(
-        phone: convertPhoneNumber(
-          _userProvider!.phoneController.text,
-        ),
-        // phone: '998998472580',
+        // phone: convertPhoneNumber(_userProvider!.phoneController.text),
+        phone: '998998472580',
       );
       result.fold((left) {
         isSuccess = true;
@@ -86,10 +84,8 @@ class AuthProvider extends ChangeNotifier {
     try {
       loading = true;
       var result = await repository.login(
-        phone: convertPhoneNumber(
-          _userProvider!.phoneController.text,
-        ),
-        // phone: '998998472580',
+        // phone: convertPhoneNumber(_userProvider!.phoneController.text),
+        phone: '998998472580',
         code: _userProvider!.codeController.text,
       );
 

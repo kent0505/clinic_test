@@ -65,67 +65,73 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     return Scaffold(
-      body: ListView(
-        children: [
-          bottomInfo(userProvider),
-          const SizedBox(height: 16),
-          GridView.count(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 1.4,
-            children: [
-              MenuWidget(
-                icon: currentIcon,
-                title: "Текущие \nзаписи",
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: const CurrentRecordScreen(),
-                  );
-                },
-                count: authProvider.newRecordmodel.length,
-              ),
-              MenuWidget(
-                icon: resultIcon,
-                title: "Результаты \nанализов",
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: const AnalisResultScreen(),
-                  );
-                },
-                count: authProvider.analisList.length,
-                isActive: true,
-              ),
-              MenuWidget(
-                icon: doctorViewIcon,
-                title: "Назначения \nврача",
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: const PrescriptionScreen(),
-                  );
-                },
-              ),
-              MenuWidget(
-                icon: historyIcon,
-                title: "История \nзаписей",
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: const HistoryRecordScreen(),
-                  );
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          buildGalleyContainer(),
-        ],
+      body: RefreshIndicator(
+        color: const Color(0xff66788C),
+        onRefresh: () async {
+          await authProvider.getUserInfo();
+        },
+        child: ListView(
+          children: [
+            bottomInfo(userProvider),
+            const SizedBox(height: 16),
+            GridView.count(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 1.4,
+              children: [
+                MenuWidget(
+                  icon: currentIcon,
+                  title: "Текущие \nзаписи",
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      screen: const CurrentRecordScreen(),
+                    );
+                  },
+                  count: authProvider.newRecordmodel.length,
+                ),
+                MenuWidget(
+                  icon: resultIcon,
+                  title: "Результаты \nанализов",
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      screen: const AnalisResultScreen(),
+                    );
+                  },
+                  count: authProvider.analisList.length,
+                  isActive: true,
+                ),
+                MenuWidget(
+                  icon: doctorViewIcon,
+                  title: "Назначения \nврача",
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      screen: const PrescriptionScreen(),
+                    );
+                  },
+                ),
+                MenuWidget(
+                  icon: historyIcon,
+                  title: "История \nзаписей",
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      screen: const HistoryRecordScreen(),
+                    );
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            buildGalleyContainer(),
+          ],
+        ),
       ),
     );
   }

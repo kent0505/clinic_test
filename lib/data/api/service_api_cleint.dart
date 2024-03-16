@@ -155,8 +155,9 @@ class ServiceApiClient {
   }
 
   ///[Список услуг по подкатегории]
-  Future<Either<List<ServiceModel>, Failure>> searchServiceByText(
-      {required String search}) async {
+  Future<Either<List<ServiceModel>, Failure>> searchServiceByText({
+    required String search,
+  }) async {
     List<ServiceModel> searchService = [];
     try {
       bool hasConnection = await NetworkInfo.isConnected();

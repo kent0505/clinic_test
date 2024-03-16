@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/core/theme/text_styles.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
@@ -19,7 +20,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  final ScrollController scrollController = ScrollController();
+  final scrollController = ScrollController();
 
   @override
   void initState() {
@@ -43,39 +44,81 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
         ),
       ),
-      body: CustomScrollView(
-        controller: scrollController,
-        slivers: [
-          if (widget.notifications.isEmpty)
-            const SliverToBoxAdapter(
-              child: Center(
-                child: Text(
-                  'У вас пока нет уведомлений',
-                  style: TextStyle(
-                    color: Color(0xff66788C),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+      body: widget.notifications.isEmpty
+          ? const NoDataWidget()
+          : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: widget.notifications.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: kWhiteColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Stack(
+                      children: [
+                        if (widget.notifications[index].isNew)
+                          Positioned(
+                            top: 6,
+                            left: 6,
+                            child: Container(
+                              width: 6,
+                              height: 6,
+                              decoration: const BoxDecoration(
+                                color: kPrimaryColor,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: NotificationMenuItem(
+                            model: widget.notifications[index],
+                            iconBgColor: kGreyScale500Color,
+                            showDate: true,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
-          SliverPadding(
-            padding: const EdgeInsets.only(
-              top: 16,
-              right: 16,
-              left: 16,
-            ),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return buildListOfItems();
-                },
-                childCount: 1,
-              ),
-            ),
-          ),
-        ],
-      ),
+      // body:  CustomScrollView(
+      //   controller: scrollController,
+      //   slivers: [
+      //     if (widget.notifications.isEmpty)
+      //       const SliverToBoxAdapter(
+      //         child: Center(
+      //           child: Text(
+      //             'У вас пока нет уведомлений',
+      //             style: TextStyle(
+      //               color: Color(0xff66788C),
+      //               fontSize: 14,
+      //               fontWeight: FontWeight.w600,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //     SliverPadding(
+      //       padding: const EdgeInsets.only(
+      //         top: 16,
+      //         right: 16,
+      //         left: 16,
+      //       ),
+      //       sliver: SliverList(
+      //         delegate: SliverChildBuilderDelegate(
+      //           (BuildContext context, int index) {
+      //             return buildListOfItems();
+      //           },
+      //           childCount: 1,
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 

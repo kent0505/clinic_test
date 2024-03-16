@@ -248,8 +248,9 @@ class AuthApiclient {
     }
   }
 
-  Future<Either<bool, Failure>> updateAvatar(
-      {required MultipartFile file}) async {
+  Future<Either<bool, Failure>> updateAvatar({
+    required MultipartFile file,
+  }) async {
     try {
       FormData formData = FormData.fromMap({"image": file});
       bool hasConnection = await NetworkInfo.isConnected();

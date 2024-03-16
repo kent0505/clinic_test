@@ -18,6 +18,7 @@ import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
 import 'package:sadykova_app/features/profile/domain/models/prescription.dart';
 import 'package:sadykova_app/features/profile/ui/screens/photo_open_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 
 class PrescriptionScreen extends StatefulWidget {
   const PrescriptionScreen({Key? key}) : super(key: key);
@@ -86,9 +87,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
           slivers: [
             if (authProvider.prescriptionModel.isEmpty)
               const SliverToBoxAdapter(
-                child: Center(
-                  child: Text('Нет элементов :('),
-                ),
+                child: NoDataWidget(),
               )
             else
               SliverPadding(

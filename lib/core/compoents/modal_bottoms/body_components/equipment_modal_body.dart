@@ -9,8 +9,6 @@ import 'package:sadykova_app/core/compoents/modal_bottoms/main_components/modal_
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_modal_bottom.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/web_view_modal_bottom.dart';
 import 'package:sadykova_app/core/theme/colors.dart';
-import 'package:sadykova_app/core/theme/text_styles.dart';
-import 'package:sadykova_app/core/utils/asset_paths.dart';
 import 'package:sadykova_app/core/utils/constants.dart';
 import 'package:sadykova_app/features/appointment/domain/state/appointment_provider.dart';
 import 'package:sadykova_app/features/main/domain/models/equipment_model.dart';
@@ -41,7 +39,7 @@ class EquipModalBody extends StatelessWidget {
       children: [
         ModalHedaerPhoto(path: model.path),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -161,51 +159,54 @@ class EquipModalBody extends StatelessWidget {
                     Column(
                       children: List.generate(
                         model.services!.length,
-                        (index) => InkWell(
-                          onTap: () async {
-                            var result =
-                                await serviceProvider.getServiceDetailInfo(
-                              serviceId: model.services![index].id!,
-                            );
-
-                            if (result) {
-                              MainModalBottom.showSimpleModalBottom(
-                                context: context,
-                                isNeddPaddingBottom: false,
-                                body: ServiceModalBody(
-                                  model: serviceProvider.selectService,
-                                  advantages: serviceProvider.advantageList,
-                                  onAccept: (BuildContext newContext) {
-                                    staffProvider.creteOrderBySttaffAndId(
-                                        serviceIds: [
-                                          model.services![index].yclientsId!
-                                        ]).then(
-                                      (value) async {
-                                        if (staffProvider
-                                            .orderLink.isNotEmpty) {
-                                          WebViewModalBotom
-                                              .showSimpleModalBottom(
-                                            isNeddPaddingBottom: false,
-                                            expanded: true,
-                                            backGroundColor: kWhiteColor,
-                                            context: newContext,
-                                            body: WebViewModalBody(
-                                              url: staffProvider.orderLink,
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
+                        (index) => Padding(
+                          padding: const EdgeInsets.only(bottom: 6),
+                          child: InkWell(
+                            onTap: () async {
+                              var result =
+                                  await serviceProvider.getServiceDetailInfo(
+                                serviceId: model.services![index].id!,
                               );
-                            }
-                          },
-                          child: ServiceCardWithPrice(
-                            serviceModel: model.services![index],
-                            isSelected:
-                                appointmemtProvider.seletServices.contains(
-                              model.services![index],
+
+                              if (result) {
+                                MainModalBottom.showSimpleModalBottom(
+                                  context: context,
+                                  isNeddPaddingBottom: false,
+                                  body: ServiceModalBody(
+                                    model: serviceProvider.selectService,
+                                    advantages: serviceProvider.advantageList,
+                                    onAccept: (BuildContext newContext) {
+                                      staffProvider.creteOrderBySttaffAndId(
+                                          serviceIds: [
+                                            model.services![index].yclientsId!
+                                          ]).then(
+                                        (value) async {
+                                          if (staffProvider
+                                              .orderLink.isNotEmpty) {
+                                            WebViewModalBotom
+                                                .showSimpleModalBottom(
+                                              isNeddPaddingBottom: false,
+                                              expanded: true,
+                                              backGroundColor: kWhiteColor,
+                                              context: newContext,
+                                              body: WebViewModalBody(
+                                                url: staffProvider.orderLink,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                              }
+                            },
+                            child: ServiceCardWithPrice(
+                              serviceModel: model.services![index],
+                              isSelected:
+                                  appointmemtProvider.seletServices.contains(
+                                model.services![index],
+                              ),
                             ),
                           ),
                         ),
@@ -225,45 +226,35 @@ class EquipModalBody extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        Container(
+        SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.width * 0.8,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                modalBg,
-              ),
-            ),
-          ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 12, left: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 130),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Запишитесь,\nмы Вам рады!",
-                  style: mainBoldTextStyle.copyWith(
-                    fontSize: 36,
+                  style: TextStyle(
+                    color: Color(0xff66788C),
+                    fontSize: 38,
                     fontWeight: FontWeight.w700,
+                    fontFamily: 'Montserrat-b',
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 ElevatedFillButton(
                   height: 55,
                   onTap: () async {
                     WebViewModalBotom.showSimpleModalBottom(
                       isNeddPaddingBottom: false,
                       context: context,
-                      body: const WebViewModalBody(
-                        url: orederLink,
-                      ),
+                      body: const WebViewModalBody(url: orederLink),
                     );
                   },
                   title: 'Записаться',

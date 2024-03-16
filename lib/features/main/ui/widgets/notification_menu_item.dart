@@ -24,9 +24,7 @@ class NotificationMenuItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         model.notificationType == "doctor"
-            ? OvalAvatar(
-                imgPath: model.photo!,
-              )
+            ? OvalAvatar(imgPath: model.photo!)
             : Container(
                 width: 40,
                 height: 40,
@@ -43,37 +41,38 @@ class NotificationMenuItem extends StatelessWidget {
                 ),
               ),
         const SizedBox(width: 16),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.6,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                model.title,
-                style: const TextStyle(
-                  color: Color(0xff66788C),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
-                ),
-              ),
-              const SizedBox(height: 4),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: Text(
-                  model.message,
+        Expanded(
+          child: SizedBox(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  model.title,
                   style: const TextStyle(
                     color: Color(0xff66788C),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 13,
-                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 4),
+                SizedBox(
+                  child: Text(
+                    model.message,
+                    style: const TextStyle(
+                      color: Color(0xff66788C),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        const Spacer(),
+        // const Spacer(),
+        const SizedBox(width: 16),
         if (showDate)
           Text(
             model.date,

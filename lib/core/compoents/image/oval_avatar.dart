@@ -29,11 +29,14 @@ class OvalAvatar extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               image: imageProvider,
             ),
           ),
         ),
+        errorWidget: (context, a, b) {
+          return Container();
+        },
         placeholder: (context, url) => const Center(
           child: Loader(),
         ),

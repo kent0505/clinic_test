@@ -28,31 +28,32 @@ class RecordModel {
   bool? allowDeleteRecord;
   bool? allowChangeRecord;
 
-  RecordModel(
-      {this.id,
-      this.services,
-      this.company,
-      this.clientsCount,
-      this.date,
-      this.datetime,
-      this.createDate,
-      this.comment,
-      this.deleted,
-      this.attendance,
-      this.length,
-      this.notifyBySms,
-      this.notifyByEmail,
-      this.masterRequested,
-      this.online,
-      this.apiId,
-      this.lastChangeDate,
-      this.prepaid,
-      this.prepaidConfirmed,
-      this.activityId,
-      this.staff,
-      this.paidAmount,
-      this.allowDeleteRecord,
-      this.allowChangeRecord});
+  RecordModel({
+    this.id,
+    this.services,
+    this.company,
+    this.clientsCount,
+    this.date,
+    this.datetime,
+    this.createDate,
+    this.comment,
+    this.deleted,
+    this.attendance,
+    this.length,
+    this.notifyBySms,
+    this.notifyByEmail,
+    this.masterRequested,
+    this.online,
+    this.apiId,
+    this.lastChangeDate,
+    this.prepaid,
+    this.prepaidConfirmed,
+    this.activityId,
+    this.staff,
+    this.paidAmount,
+    this.allowDeleteRecord,
+    this.allowChangeRecord,
+  });
 
   RecordModel.fromJson(Map<String, dynamic> json) {
     try {
@@ -224,26 +225,27 @@ class Company {
   int? allowDeleteRecordDelayStep;
   String? logo;
 
-  Company(
-      {this.id,
-      this.title,
-      this.countryId,
-      this.country,
-      this.cityId,
-      this.city,
-      this.phone,
-      this.phones,
-      this.timezone,
-      this.address,
-      this.coordinateLat,
-      this.coordinateLon,
-      this.allowDeleteRecord,
-      this.allowChangeRecord,
-      this.site,
-      this.currencyShortTitle,
-      this.allowChangeRecordDelayStep,
-      this.allowDeleteRecordDelayStep,
-      this.logo});
+  Company({
+    this.id,
+    this.title,
+    this.countryId,
+    this.country,
+    this.cityId,
+    this.city,
+    this.phone,
+    this.phones,
+    this.timezone,
+    this.address,
+    this.coordinateLat,
+    this.coordinateLon,
+    this.allowDeleteRecord,
+    this.allowChangeRecord,
+    this.site,
+    this.currencyShortTitle,
+    this.allowChangeRecordDelayStep,
+    this.allowDeleteRecordDelayStep,
+    this.logo,
+  });
 
   Company.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -305,18 +307,19 @@ class Services {
   int? abonementRestriction;
   PrepaidSettings? prepaidSettings;
 
-  Services(
-      {this.id,
-      this.title,
-      this.cost,
-      this.priceMin,
-      this.priceMax,
-      this.discount,
-      this.amount,
-      this.seanceLength,
-      this.apiId,
-      this.abonementRestriction,
-      this.prepaidSettings});
+  Services({
+    this.id,
+    this.title,
+    this.cost,
+    this.priceMin,
+    this.priceMax,
+    this.discount,
+    this.amount,
+    this.seanceLength,
+    this.apiId,
+    this.abonementRestriction,
+    this.prepaidSettings,
+  });
 
   Services.fromJson(Map<String, dynamic> json) {
     id = json['id'];

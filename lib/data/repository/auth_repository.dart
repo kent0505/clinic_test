@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:sadykova_app/core/error/failures.dart';
@@ -46,7 +44,6 @@ class AuthRepository {
   }
 
   Future<User?> getUserFromStorage() async {
-    log("getUserFromStorage getUserFromStorage getUserFromStorage getUserFromStorage getUserFromStorage");
     final result = await _stoageAuthlient.getUserFromStorage();
     return result;
   }

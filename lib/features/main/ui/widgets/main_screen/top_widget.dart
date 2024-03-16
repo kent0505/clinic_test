@@ -8,10 +8,7 @@ import 'package:sadykova_app/core/utils/constants.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/login_screen.dart';
 import 'package:sadykova_app/features/main/domain/models/notifications_model.dart';
-import 'package:sadykova_app/features/main/domain/state/home_provider.dart';
 import 'package:sadykova_app/features/main/ui/screens/store_screen.dart';
-import 'package:sadykova_app/features/main/ui/widgets/main_screen/notification_card.dart';
-import 'package:sadykova_app/features/main/ui/widgets/main_screen/notification_icon.dart';
 import 'package:sadykova_app/navigation/main_swiper_provider.dart';
 
 class TopScreenWidget extends StatelessWidget {
@@ -27,7 +24,7 @@ class TopScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    final homeProvider = Provider.of<HomeProvider>(context);
+    // final homeProvider = Provider.of<HomeProvider>(context);
     final swiperProvider = Provider.of<MainSwiperProvider>(context);
 
     return Stack(
@@ -52,9 +49,9 @@ class TopScreenWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SvgPicture.asset(lightLogo),
-                  NotificationIcon(
-                    notifications: homeProvider.notificationModels,
-                  ),
+                  // NotificationIcon(
+                  //   notifications: homeProvider.notificationModels,
+                  // ),
                 ],
               ),
               const SizedBox(height: 26),
@@ -79,13 +76,13 @@ class TopScreenWidget extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 22),
-              userProvider.user != null &&
-                      userProvider.user!.name != null &&
-                      userProvider.user!.name!.isNotEmpty &&
-                      homeProvider.notificationVisible
-                  ? NotificationCard(models: notificationList)
-                  : Container(),
-              const SizedBox(height: 12),
+              // userProvider.user != null &&
+              //         userProvider.user!.name != null &&
+              //         userProvider.user!.name!.isNotEmpty &&
+              //         homeProvider.notificationVisible
+              //     ? NotificationCard(models: notificationList)
+              //     : Container(),
+              // const SizedBox(height: 12),
               Row(
                 children: [
                   userProvider.user != null &&

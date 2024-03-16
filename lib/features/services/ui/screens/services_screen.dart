@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/service_modal_body.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/webview_modal_body.dart';
@@ -20,8 +21,6 @@ class ServicesScreen extends StatefulWidget {
 }
 
 class _ServicesScreenState extends State<ServicesScreen> {
-  final ScrollController scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
@@ -39,7 +38,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
     final appointmemtProvider = Provider.of<AppointmemtProvider>(context);
     final serviceProvider = Provider.of<ServiceProvider>(context);
     final staffProvider = Provider.of<StaffProvider>(context);
-    var subGroup = serviceProvider.getSelectSubGroupModel();
+    final subGroup = serviceProvider.getSelectSubGroupModel();
 
     return Scaffold(
       appBar: customAppBar(
@@ -55,15 +54,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
             fontFamily: 'Montserrat-b',
           ),
         ),
-        // actions: [
-        //   if (serviceProvider.serviceLoading)
-        //     const Padding(
-        //       padding: EdgeInsets.only(right: 24),
-        //       child: SizedBox(
-        //         child: Loader(),
-        //       ),
-        //     )
-        // ],
       ),
       body: serviceProvider.loading
           ? const Center(
@@ -71,98 +61,68 @@ class _ServicesScreenState extends State<ServicesScreen> {
             )
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 66),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          return listOfService(
-                            serviceProvider: serviceProvider,
-                            appointmemtProvider: appointmemtProvider,
-                            staffProvider: staffProvider,
-                          );
-                        },
-                        childCount: 1,
-                      ),
-                    ),
-                  ),
-                  if (serviceProvider.serviceList.isEmpty)
-                    const SliverToBoxAdapter(
-                      child: Center(
-                        child: Text(
-                          'Нет элементов :(',
-                          style: TextStyle(
-                            color: Color(0xff66788C),
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-    );
-  }
+              child: serviceProvider.serviceList.isEmpty
+                  ? const NoDataWidget()
+                  : ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 66),
+                      itemCount: serviceProvider.serviceList.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: InkWell(
+                            onTap: () async {
+                              await serviceProvider.getServiceDetailInfo(
+                                serviceId:
+                                    serviceProvider.serviceList[index].id!,
+                              );
+                              // if (result) {
 
-  Widget listOfService({
-    required ServiceProvider serviceProvider,
-    required AppointmemtProvider appointmemtProvider,
-    required StaffProvider staffProvider,
-  }) {
-    return Column(
-      children: List.generate(
-        serviceProvider.serviceList.length,
-        (index) => Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: InkWell(
-            onTap: () async {
-              await serviceProvider.getServiceDetailInfo(
-                serviceId: serviceProvider.serviceList[index].id!,
-              );
-              // if (result) {
-
-              // }
-              MainModalBottom.showSimpleModalBottom(
-                context: context,
-                isNeddPaddingBottom: false,
-                body: ServiceModalBody(
-                  model: serviceProvider.selectService,
-                  advantages: serviceProvider.advantageList,
-                  onAccept: (BuildContext newContext) {
-                    staffProvider.creteOrderBySttaffAndId(
-                      serviceIds: [
-                        serviceProvider.serviceList[index].yclientsId!
-                      ],
-                    ).then(
-                      (value) async {
-                        if (staffProvider.orderLink.isNotEmpty) {
-                          WebViewModalBotom.showSimpleModalBottom(
-                            isNeddPaddingBottom: false,
-                            expanded: true,
-                            backGroundColor: kWhiteColor,
-                            context: newContext,
-                            body: WebViewModalBody(
-                              url: staffProvider.orderLink,
+                              // }
+                              MainModalBottom.showSimpleModalBottom(
+                                context: context,
+                                isNeddPaddingBottom: false,
+                                body: ServiceModalBody(
+                                  model: serviceProvider.selectService,
+                                  advantages: serviceProvider.advantageList,
+                                  onAccept: (BuildContext newContext) {
+                                    staffProvider.creteOrderBySttaffAndId(
+                                      serviceIds: [
+                                        serviceProvider
+                                            .serviceList[index].yclientsId!
+                                      ],
+                                    ).then(
+                                      (value) async {
+                                        if (staffProvider
+                                            .orderLink.isNotEmpty) {
+                                          WebViewModalBotom
+                                              .showSimpleModalBottom(
+                                            isNeddPaddingBottom: false,
+                                            expanded: true,
+                                            backGroundColor: kWhiteColor,
+                                            context: newContext,
+                                            body: WebViewModalBody(
+                                              url: staffProvider.orderLink,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: ServiceCardWithPrice(
+                              isSelected:
+                                  appointmemtProvider.seletServices.contains(
+                                serviceProvider.serviceList[index],
+                              ),
+                              serviceModel: serviceProvider.serviceList[index],
                             ),
-                          );
-                        }
+                          ),
+                        );
                       },
-                    );
-                  },
-                ),
-              );
-            },
-            child: ServiceCardWithPrice(
-              isSelected: appointmemtProvider.seletServices.contains(
-                serviceProvider.serviceList[index],
-              ),
-              serviceModel: serviceProvider.serviceList[index],
+                    ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

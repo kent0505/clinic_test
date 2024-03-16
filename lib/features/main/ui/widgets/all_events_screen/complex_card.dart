@@ -1,5 +1,5 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader.dart';
 import 'package:sadykova_app/core/theme/colors.dart';
@@ -37,11 +37,16 @@ class ComplexCard extends StatelessWidget {
                 placeholder: (context, url) => const Center(
                   child: Loader(),
                 ),
+                errorWidget: (context, a, b) {
+                  return Container();
+                },
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover),
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

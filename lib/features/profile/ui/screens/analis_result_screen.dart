@@ -4,9 +4,9 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
 import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
-import 'package:sadykova_app/features/profile/domain/models/analize.dart';
 import 'package:sadykova_app/features/profile/ui/screens/detail_analis_screen.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/analis_menu_item.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 
 class AnalisResultScreen extends StatefulWidget {
   const AnalisResultScreen({Key? key}) : super(key: key);
@@ -16,8 +16,6 @@ class AnalisResultScreen extends StatefulWidget {
 }
 
 class _AnalisResultScreenState extends State<AnalisResultScreen> {
-  final scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
@@ -52,85 +50,30 @@ class _AnalisResultScreenState extends State<AnalisResultScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.only(bottom: 32),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return buildListOfItems(
-                      authProvider.analisList,
-                    );
-                  },
-                  childCount: 1,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildListOfItems(List<AnalisModel> analisModels) {
-    return analisModels.isEmpty
-        ? const Expanded(
-            child: Center(
-              child: Text('Нет элементов :('),
-            ),
-          )
-        : Column(
-            children: List.generate(
-              analisModels.length,
-              (index) => InkWell(
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: DetailAnalisScreen(
-                      analisModel: analisModels[index],
+        child: authProvider.analisList.isEmpty
+            ? const NoDataWidget()
+            : ListView.builder(
+                itemCount: authProvider.analisList.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      pushNewScreen(
+                        context,
+                        screen: DetailAnalisScreen(
+                          analisModel: authProvider.analisList[index],
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: AnalisMenuItem(
+                        model: authProvider.analisList[index],
+                      ),
                     ),
                   );
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: AnalisMenuItem(
-                    model: analisModels[index],
-                  ),
-                ),
               ),
-            ),
-          );
+      ),
+    );
   }
-
-  // List<Widget> createPhotoList(
-  //     List<PhotoModel> models, UserProvider userProvider) {
-  //   List<Widget> newList = [];
-  //   for (int index = 0; index < models.length; index++) {
-  //     newList.add(
-  //       InkWell(
-  //         onTap: () {
-  //           pushNewScreen(
-  //             context,
-  //             withNavBar: false,
-  //             screen: PhotoOpenScreen(
-  //               initialIndex: index,
-  //               photoModels: userProvider.doctorDocs,
-  //             ),
-  //           );
-  //         },
-  //         child: CachedNetworkImage(
-  //           imageUrl: models[index].photoPath,
-  //           errorWidget: (context, url, error) => Container(),
-  //           placeholder: (context, url) => const Center(
-  //             child: Loader(),
-  //           ),
-  //           fit: BoxFit.cover,
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   return newList;
-  // }
 }

@@ -5,11 +5,12 @@ class NotificationsModels {
   String notificationType;
   String? photo;
   bool isNew;
-  NotificationsModels(
-      {required this.date,
-       this.photo,
-      required this.message,
-      required this.notificationType,
-      required this.title,
-      required this.isNew});
+  NotificationsModels({
+    required this.date,
+    this.photo,
+    required this.message,
+    required this.notificationType,
+    required this.title,
+    required this.isNew,
+  });
 }

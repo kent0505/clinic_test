@@ -44,6 +44,7 @@ class _NotificationCardState extends State<NotificationCard> {
           top: 7,
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Column(
@@ -61,15 +62,20 @@ class _NotificationCardState extends State<NotificationCard> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: widget.models.isEmpty ? 8 : 0),
                   widget.models.isNotEmpty
-                      ? Column(
-                          children: List.generate(
-                            widget.models.length,
-                            (index) => NotificationMenuItem(
-                              model: widget.models[index],
-                            ),
-                          ),
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: widget.models.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: NotificationMenuItem(
+                                model: widget.models[index],
+                              ),
+                            );
+                          },
                         )
                       : const Text(
                           'У вас нет уведомлений',
@@ -86,7 +92,7 @@ class _NotificationCardState extends State<NotificationCard> {
               onTap: () {
                 homeProvider.closeNotification();
               },
-            )
+            ),
           ],
         ),
       ),

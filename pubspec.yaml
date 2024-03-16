@@ -11,19 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
   cupertino_icons: ^1.0.2
-  get: ^4.6.1
-  flutter_bloc: ^8.0.1
-  bloc: ^8.0.3
-  # equatable: ^2.0.3
+  ###
   logger: ^1.1.0
-  injectable: ^1.5.3
   dartz: ^0.10.1
   flutter_svg: ^0.22.0
-  freezed: ^0.14.5
-  freezed_annotation: ^0.15.0
   shimmer: ^2.0.0
   data_connection_checker: ^0.3.4
   dio: ^4.0.0
@@ -39,8 +31,6 @@ dependencies:
   image_picker: ^0.8.5+3
   intl: ^0.17.0
   table_calendar: ^3.0.6
-  graphql_flutter: ^5.1.0
-  animated_splash_screen: ^1.3.0
   flutter_html: ^2.2.1
   auto_size_text: ^3.0.0
   url_launcher: ^6.1.5
@@ -52,8 +42,7 @@ dependencies:
   http_parser: ^4.0.0
   flutter_cached_pdfview: ^0.4.1
   yandex_mapkit: ^3.1.1
-
-
+  ###
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,13 +64,10 @@ flutter_icons:
 flutter:
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/icons/logo/
     - assets/icons/appointment/
     - assets/icons/profile/
-
-
     - assets/icons/main/
     - assets/icons/nav_bar/
     - assets/images/user/
@@ -91,23 +77,8 @@ flutter:
     - assets/images/map/
     - assets/images/placeholder/
     - assets/lottie/
-
-    - assets/images/animation/
     - .env
 
-
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
   fonts:
     - family: Montserrat
       fonts:
@@ -118,12 +89,3 @@ flutter:
     - family: Montserrat-b
       fonts:
         - asset: assets/fonts/Montserrat-Bold.ttf
-
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

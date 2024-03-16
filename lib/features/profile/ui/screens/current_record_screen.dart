@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
-import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
-import 'package:sadykova_app/features/profile/domain/models/record_model.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/date_modal_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/record_card.dart';
 
 class CurrentRecordScreen extends StatefulWidget {
@@ -17,8 +16,6 @@ class CurrentRecordScreen extends StatefulWidget {
 }
 
 class _CurrentRecordScreenState extends State<CurrentRecordScreen> {
-  final scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
@@ -37,7 +34,6 @@ class _CurrentRecordScreenState extends State<CurrentRecordScreen> {
     }
 
     return Scaffold(
-      backgroundColor: kBgColor,
       appBar: customAppBar(
         () {
           Navigator.pop(context);
@@ -53,51 +49,29 @@ class _CurrentRecordScreenState extends State<CurrentRecordScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.only(bottom: 32),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return buildListOfItems(
-                      authProvider.newRecordmodel,
-                    );
-                  },
-                  childCount: 1,
-                ),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: authProvider.newRecordmodel.isEmpty
+            ? const NoDataWidget()
+            : ListView.builder(
+                itemCount: authProvider.newRecordmodel.length,
+                itemBuilder: (context, index) {
+                  if (authProvider.newRecordmodel.isEmpty) {
+                    return const NoDataWidget();
+                  }
+                  return InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: RecordCard(
+                        model: authProvider.newRecordmodel[index],
+                        isCurrent: true,
+                      ),
+                    ),
+                  );
+                },
               ),
-            ),
-          ],
-        ),
       ),
     );
-  }
-
-  Widget buildListOfItems(List<RecordModel> recordModels) {
-    return recordModels.isEmpty
-        ? const Expanded(
-            child: Center(
-              child: Text('Нет элементов :('),
-            ),
-          )
-        : Column(
-            children: List.generate(
-              recordModels.length,
-              (index) => InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RecordCard(
-                    model: recordModels[index],
-                    isCurrent: true,
-                  ),
-                ),
-              ),
-            ),
-          );
   }
 
   void openDateModal(UserProvider provider) async {

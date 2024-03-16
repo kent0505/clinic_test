@@ -31,20 +31,14 @@ class ComplexServiceBody extends StatelessWidget {
 
     return Column(
       children: [
-        ModalHedaerPhoto(
-          path: model.path,
-        ),
+        ModalHedaerPhoto(path: model.path),
         Padding(
-          padding: const EdgeInsets.only(
-            top: 20,
-            bottom: 17,
-            right: 12,
-            left: 12,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const SizedBox(height: 20),
               Text(
                 model.name ?? '',
                 style: const TextStyle(

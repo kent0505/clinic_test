@@ -47,7 +47,56 @@ class HomeProvider extends ChangeNotifier {
   EquipmentModel? selectEquiment;
   List<ComplexServiceModel> complexServiceModel = [];
   ComplexServiceModel? serviceComplexServiceModel;
-  List<NotificationsModels> notificationModels = [];
+  List<NotificationsModels> notificationModels = [
+    NotificationsModels(
+      date: "12.10.2021",
+      photo:
+          'https://img.freepik.com/free-photo/happy-male-doctor-making-selfie-photo-with-smartphone-on-white-background_230311-7374.jpg?w=2000',
+      message: 'Дерматолог, Диляра Ильдусовна',
+      notificationType: 'doctor',
+      title: '19 окт, четверг 14:30',
+      isNew: true,
+    ),
+    NotificationsModels(
+      date: "14.10.2021",
+      message: 'Посмотреть результаты можно в личном кабинете',
+      notificationType: 'result',
+      title: 'Готовы результаты анализов',
+      isNew: false,
+    ),
+    NotificationsModels(
+      date: "12.10.2021",
+      photo:
+          'https://img.freepik.com/free-photo/happy-male-doctor-making-selfie-photo-with-smartphone-on-white-background_230311-7374.jpg?w=2000',
+      message: 'Дерматолог, Диляра Ильдусовна',
+      notificationType: 'doctor',
+      title: '19 окт, четверг 14:30',
+      isNew: true,
+    ),
+    NotificationsModels(
+      date: "14.10.2021",
+      message: 'Посмотреть результаты можно в личном кабинете',
+      notificationType: 'result',
+      title: 'Готовы результаты анализов',
+      isNew: false,
+    ),
+    NotificationsModels(
+      date: "12.10.2021",
+      photo:
+          'https://img.freepik.com/free-photo/happy-male-doctor-making-selfie-photo-with-smartphone-on-white-background_230311-7374.jpg?w=2000',
+      message: 'Дерматолог, Диляра Ильдусовна',
+      notificationType: 'doctor',
+      title: '19 окт, четверг 14:30',
+      isNew: true,
+    ),
+    NotificationsModels(
+      date: "14.10.2021",
+      message: 'Посмотреть результаты можно в личном кабинете',
+      notificationType: 'result',
+      title: 'Готовы результаты анализов',
+      isNew: false,
+    ),
+  ];
   List<ContactMdel> contactsList = [];
 
   Failure? error;

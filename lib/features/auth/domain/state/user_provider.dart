@@ -7,9 +7,6 @@ import 'package:sadykova_app/features/auth/domain/models/user.dart';
 
 class UserProvider extends ChangeNotifier {
   UserProvider() {
-    // user = User(
-    //     token:
-    //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Ijc5MTc4OTE0MTY1IiwiaWQiOjUsInljbGllbnRzVG9rZW4iOiJhMjM0NzFmOGQ1OGY5YWY4YzNkZjAzYTVhMjQ2ZjM2MCIsInljbGllbnRzSWQiOiIxNTM1MTgiLCJjb2RlIjo3MjEyLCJpYXQiOjE2NzkyOTk5MjB9.6J_541UMA-WqKvj-2bfO8dx46tZUORxpTBuDfxm8jjU");
     getUserFromStorage();
   }
 
@@ -26,10 +23,6 @@ class UserProvider extends ChangeNotifier {
   Future<void> getUserFromStorage() async {
     repository.getUserFromStorage().then(
       (value) {
-        // user = User(
-        //     token:
-        //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Ijc5MTc4OTE0MTY1IiwiaWQiOjksInljbGllbnRzVG9rZW4iOiJhMjM0NzFmOGQ1OGY5YWY4YzNkZjAzYTVhMjQ2ZjM2MCIsInljbGllbnRzSWQiOiIxNTM1MTgiLCJjb2RlIjoxNzY2LCJpYXQiOjE2ODMxOTkxNzJ9.TS7grlk2XG1vNcBt4e2NR69T-_jeGvJDggnb5S00DhM");
-
         if (value != null) {
           user = value;
           log("user name ${value.name}");

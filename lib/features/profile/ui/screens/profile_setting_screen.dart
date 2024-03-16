@@ -84,7 +84,7 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
-      backgroundColor: kBgColor,
+      resizeToAvoidBottomInset: false,
       appBar: customAppBar(
         () {
           Navigator.pop(context);
@@ -245,10 +245,11 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
         ),
         const SizedBox(height: 16),
         CustomTextField(
-          isOnlyReady: true,
+          // isOnlyReady: true,
           title: "Номер телефона",
           formKey: phoneKey,
           controller: phoneController,
+          inputType: TextInputType.number,
           hintText: 'Номер телефона',
           validator: (value) {
             if (value.isEmpty) {

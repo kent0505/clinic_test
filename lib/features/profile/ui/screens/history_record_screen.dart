@@ -4,8 +4,8 @@ import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
 import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
-import 'package:sadykova_app/features/profile/domain/models/record_model.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/date_modal_sheet.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/record_card.dart';
 
 class HistoryRecordScreen extends StatefulWidget {
@@ -16,8 +16,6 @@ class HistoryRecordScreen extends StatefulWidget {
 }
 
 class _HistoryRecordScreenState extends State<HistoryRecordScreen> {
-  final scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
@@ -51,55 +49,25 @@ class _HistoryRecordScreenState extends State<HistoryRecordScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            if (authProvider.orldRecordModel.isEmpty)
-              const SliverToBoxAdapter(
-                child: Center(
-                  child: Text('Нет элементов :('),
-                ),
-              )
-            else
-              SliverPadding(
-                padding: const EdgeInsets.only(bottom: 32),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return buildListOfItems(
-                        authProvider.orldRecordModel,
-                      );
-                    },
-                    childCount: 1,
-                  ),
-                ),
+        child: authProvider.orldRecordModel.isEmpty
+            ? const NoDataWidget()
+            : ListView.builder(
+                itemCount: authProvider.orldRecordModel.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: RecordCard(
+                        model: authProvider.orldRecordModel[index],
+                        isCurrent: false,
+                      ),
+                    ),
+                  );
+                },
               ),
-          ],
-        ),
       ),
     );
-  }
-
-  Widget buildListOfItems(List<RecordModel> recordModels) {
-    return recordModels.isEmpty
-        ? const Center(
-            child: Text('Нет элементов :('),
-          )
-        : Column(
-            children: List.generate(
-              recordModels.length,
-              (index) => InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RecordCard(
-                    model: recordModels[index],
-                    isCurrent: false,
-                  ),
-                ),
-              ),
-            ),
-          );
   }
 
   void openDateModal(UserProvider provider) async {

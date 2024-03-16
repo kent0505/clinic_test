@@ -41,9 +41,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final scrollController = ScrollController();
-  late PageController pageController;
-
   // late YandexMapController controller;
   // final completer = Completer<YandexMapController>();
   // final List<MapObject> mapObjectss = [];
@@ -65,15 +62,15 @@ class _MainScreenState extends State<MainScreen> {
         final serviceProvider =
             Provider.of<ServiceProvider>(context, listen: false);
         final homeProvider = Provider.of<HomeProvider>(context, listen: false);
-        final _userProvider = Provider.of<UserProvider>(context, listen: false);
+        // final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-        if (_userProvider.isFirstInit) {
-          WidgetsBinding.instance!.addPostFrameCallback(
-            (timeStamp) {
-              openCityModal(_userProvider);
-            },
-          );
-        }
+        // if (userProvider.isFirstInit) {
+        //   WidgetsBinding.instance!.addPostFrameCallback(
+        //     (timeStamp) {
+        //       openCityModal(userProvider);
+        //     },
+        //   );
+        // }
         try {
           whatsApp = homeProvider.contactsList.firstWhere(
             (element) => element.type == 'whatsapp',
@@ -157,94 +154,98 @@ class _MainScreenState extends State<MainScreen> {
                 );
               },
             ),
-            const SizedBox(height: 32),
-            SeeAllWidget(
-              mainText: "Новости и акции",
-              onTapAll: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) {
-                      return const AllEvents();
-                    },
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 11),
-            SliderListWidget(
-              topEvents: homeProvider.topEventList,
-              onTapSlider: (int index) {
-                if (homeProvider.topEventList[index] is ActionsModel) {
-                  MainModalBottom.showSimpleModalBottom(
-                    context: context,
-                    body: ActionModalBody(
-                      model: homeProvider.topEventList[index] as ActionsModel,
+            if (homeProvider.topEventList.isNotEmpty) ...[
+              const SizedBox(height: 32),
+              SeeAllWidget(
+                mainText: "Новости и акции",
+                onTapAll: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) {
+                        return const AllEvents();
+                      },
                     ),
-                  );
-                }
-
-                if (homeProvider.topEventList[index] is NewsModel) {
-                  MainModalBottom.showSimpleModalBottom(
-                    context: context,
-                    body: NewsModalBody(
-                      model: homeProvider.topEventList[index] as NewsModel,
-                    ),
-                  );
-                }
-
-                if (homeProvider.topEventList[index] is EventModel) {
-                  MainModalBottom.showSimpleModalBottom(
-                    context: context,
-                    body: EventModalBody(
-                      model: homeProvider.topEventList[index] as EventModel,
-                      whatsApp: whatsApp,
-                    ),
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 32),
-            SeeAllWidget(
-              mainText: "Услуги и цены",
-              onTapAll: () {
-                swiperProvider.swithBottomNavBar(2);
-              },
-            ),
-            const SizedBox(height: 11),
-            GridView.count(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              crossAxisCount: 3,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              children: List.generate(
-                serviceProvider.groupServices.length > 6
-                    ? 6
-                    : serviceProvider.groupServices.length,
-                (index) {
-                  return GroupServiceCard(
-                    model: serviceProvider.groupServices[index],
-                    onCardTap: () {
-                      serviceProvider.groupId =
-                          serviceProvider.groupServices[index].id!;
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                            return const SubGroupScreen(
-                              fromAppointment: false,
-                            );
-                          },
-                        ),
-                      );
-                    },
                   );
                 },
               ),
-            ),
+              const SizedBox(height: 11),
+              SliderListWidget(
+                topEvents: homeProvider.topEventList,
+                onTapSlider: (int index) {
+                  if (homeProvider.topEventList[index] is ActionsModel) {
+                    MainModalBottom.showSimpleModalBottom(
+                      context: context,
+                      body: ActionModalBody(
+                        model: homeProvider.topEventList[index] as ActionsModel,
+                      ),
+                    );
+                  }
+
+                  if (homeProvider.topEventList[index] is NewsModel) {
+                    MainModalBottom.showSimpleModalBottom(
+                      context: context,
+                      body: NewsModalBody(
+                        model: homeProvider.topEventList[index] as NewsModel,
+                      ),
+                    );
+                  }
+
+                  if (homeProvider.topEventList[index] is EventModel) {
+                    MainModalBottom.showSimpleModalBottom(
+                      context: context,
+                      body: EventModalBody(
+                        model: homeProvider.topEventList[index] as EventModel,
+                        whatsApp: whatsApp,
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+            if (serviceProvider.groupServices.isNotEmpty) ...[
+              const SizedBox(height: 32),
+              SeeAllWidget(
+                mainText: "Услуги и цены",
+                onTapAll: () {
+                  swiperProvider.swithBottomNavBar(2);
+                },
+              ),
+              const SizedBox(height: 11),
+              GridView.count(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                crossAxisCount: 3,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                children: List.generate(
+                  serviceProvider.groupServices.length > 6
+                      ? 6
+                      : serviceProvider.groupServices.length,
+                  (index) {
+                    return GroupServiceCard(
+                      model: serviceProvider.groupServices[index],
+                      onCardTap: () {
+                        serviceProvider.groupId =
+                            serviceProvider.groupServices[index].id!;
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) {
+                              return const SubGroupScreen(
+                                fromAppointment: false,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
             AboutUsWidget(
               text: "О нас",

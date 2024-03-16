@@ -33,13 +33,13 @@ class RecordCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                OvalAvatar(
-                  imgPath: model.staff != null && model.staff!.avatar != null
-                      ? model.staff!.avatar!
-                      : '',
-                  height: 76,
-                  width: 76,
-                ),
+                if (model.staff != null && model.staff!.avatar != null) ...[
+                  OvalAvatar(
+                    imgPath: model.staff!.avatar!,
+                    height: 76,
+                    width: 76,
+                  ),
+                ],
                 const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

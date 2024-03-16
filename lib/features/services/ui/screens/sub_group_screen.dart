@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader_state.dart';
 import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/core/theme/text_styles.dart';
@@ -23,8 +24,6 @@ class SubGroupScreen extends StatefulWidget {
 }
 
 class _SubGroupScreenState extends State<SubGroupScreen> {
-  final ScrollController scrollController = ScrollController();
-
   @override
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback(
@@ -65,70 +64,41 @@ class _SubGroupScreenState extends State<SubGroupScreen> {
           ? const LoaderState()
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 66, top: 16),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          return listOfSubGroups(
-                            serviceProvider: serviceProvider,
-                          );
-                        },
-                        childCount: 1,
-                      ),
-                    ),
-                  ),
-                  if (serviceProvider.subGroupService.isEmpty)
-                    const SliverToBoxAdapter(
-                      child: Center(
-                        child: Text(
-                          'Нет элементов :(',
-                          style: TextStyle(
-                            color: Color(0xff66788C),
+              child: serviceProvider.subGroupService.isEmpty
+                  ? const NoDataWidget()
+                  : ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 66),
+                      itemCount: serviceProvider.subGroupService.length,
+                      itemBuilder: (context, index) {
+                        return CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            serviceProvider.subGroupId =
+                                serviceProvider.subGroupService[index].id!;
+
+                            pushNewScreen(
+                              context,
+                              screen: const ServicesScreen(),
+                            );
+
+                            // if (!widget.fromAppointment) {
+                            //   openServiceBottom(models[index]);
+                            // } else {
+                            //   pushNewScreen(
+                            //     context,
+                            //     screen: SelectServicePriceScreen(
+                            //       serviceModel: models[index],
+                            //     ),
+                            //   );
+                            // }
+                          },
+                          child: SubGroupServiceMenuItem(
+                            service: serviceProvider.subGroupService[index],
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
-                ],
-              ),
             ),
-    );
-  }
-
-  Widget listOfSubGroups({required ServiceProvider serviceProvider}) {
-    return Column(
-      children: List.generate(
-        serviceProvider.subGroupService.length,
-        (index) => CupertinoButton(
-          padding: EdgeInsets.zero,
-          onPressed: () {
-            serviceProvider.subGroupId =
-                serviceProvider.subGroupService[index].id!;
-
-            pushNewScreen(
-              context,
-              screen: const ServicesScreen(),
-            );
-
-            // if (!widget.fromAppointment) {
-            //   openServiceBottom(models[index]);
-            // } else {
-            //   pushNewScreen(
-            //     context,
-            //     screen: SelectServicePriceScreen(
-            //       serviceModel: models[index],
-            //     ),
-            //   );
-            // }
-          },
-          child: SubGroupServiceMenuItem(
-            service: serviceProvider.subGroupService[index],
-          ),
-        ),
-      ),
     );
   }
 }

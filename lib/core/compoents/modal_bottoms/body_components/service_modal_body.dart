@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sadykova_app/core/compoents/cards/duration_card.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_components/advantage_widget.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_components/modal_bottom_component.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_components/modal_header_photo.dart';
-import 'package:sadykova_app/core/compoents/utils/custom_line.dart';
-import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/core/theme/text_styles.dart';
-import 'package:sadykova_app/core/utils/asset_paths.dart';
 import 'package:sadykova_app/core/utils/path_converter.dart';
-import 'package:sadykova_app/features/main/domain/models/event_model.dart';
 import 'package:sadykova_app/features/main/ui/widgets/card_with_slider.dart';
 import 'package:sadykova_app/features/main/ui/widgets/instruction_widget.dart';
 import 'package:sadykova_app/features/main/ui/widgets/photo_text_menu_item.dart';
@@ -162,117 +157,6 @@ class ServiceModalBody extends StatelessWidget {
           },
         ),
       ],
-    );
-  }
-
-  Widget buildbottomModal(EventModel event) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: kWhiteColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Записаться",
-                            style: mainBoldTextStyle.copyWith(
-                              fontSize: 23,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: Image.asset(
-                          eventBG,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 14),
-            const CustomLine(
-              color: kGreyScale500Color,
-            ),
-            const SizedBox(height: 14),
-            Padding(
-              padding: const EdgeInsets.only(right: 16, left: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Cтоимость",
-                    style: mainRegulartTextStyle.copyWith(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  Text(
-                    event.price.toString(),
-                    style: mainRegulartTextStyle.copyWith(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 14),
-            const CustomLine(
-              color: kGreyScale500Color,
-            ),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    whatsappIcon,
-                    width: 30,
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Text(
-                    "8 (951) 060–56–84",
-                    style: mainRegulartTextStyle.copyWith(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }
