@@ -1,13 +1,8 @@
 name: sadykova_app
 description: A new Flutter project.
-
-
-
 version: 1.0.1+3
-
 environment:
   sdk: ">=2.12.0 <3.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
@@ -42,12 +37,12 @@ dependencies:
   http_parser: ^4.0.0
   flutter_cached_pdfview: ^0.4.1
   yandex_mapkit: ^3.1.1
+  webview_flutter:
   ###
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  injectable_generator: ^1.5.2
   flutter_lints: ^1.0.0
   flutter_native_splash: ^1.3.0
   flutter_launcher_icons: ^0.11.0

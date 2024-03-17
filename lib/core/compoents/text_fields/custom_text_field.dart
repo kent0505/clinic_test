@@ -112,8 +112,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: kPrimaryColor,
+                borderSide: BorderSide(
+                  color: !widget.isOnlyReady ? kPrimaryColor : Colors.white,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),

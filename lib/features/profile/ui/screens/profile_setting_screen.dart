@@ -257,6 +257,7 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
             }
             return null;
           },
+          isOnlyReady: true,
           formatters: const [
             // TextInputMask(mask: '\\+ 7 (999) 999-99-99', reverse: false),
           ],

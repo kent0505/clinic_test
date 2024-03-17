@@ -6,7 +6,6 @@ import 'package:sadykova_app/core/theme/text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/login_screen.dart';
-import 'package:sadykova_app/navigation/main_swiper_provider.dart';
 
 class NeedAuthScreen extends StatefulWidget {
   const NeedAuthScreen({Key? key}) : super(key: key);
@@ -19,7 +18,6 @@ class _NeedAuthScreenState extends State<NeedAuthScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    final swiperProvider = Provider.of<MainSwiperProvider>(context);
 
     return Scaffold(
       backgroundColor: kGreyScale300Color,
