@@ -10,5 +10,3 @@ class ServerException extends Equatable implements Exception {
   @override
   List<Object?> get props => [error, stack];
 }
-
-

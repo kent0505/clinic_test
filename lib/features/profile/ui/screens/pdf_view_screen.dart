@@ -1,9 +1,8 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
 import 'package:sadykova_app/core/compoents/top_snackbar/top_alert.dart';
@@ -84,15 +83,15 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         ),
       ),
       body: SizedBox(
-        child: const PDF().cachedFromUrl(
-          widget.pdfPath,
-          placeholder: (double progress) => Center(child: Text('$progress %')),
-          errorWidget: (dynamic error) => Center(child: Text(error.toString())),
-        ),
-        // child: SfPdfViewer.network(
-        //   widget.pdfPath,
-        // ),
-      ),
+          //   child: const PDF().cachedFromUrl(
+          //     widget.pdfPath,
+          //     placeholder: (double progress) => Center(child: Text('$progress %')),
+          //     errorWidget: (dynamic error) => Center(child: Text(error.toString())),
+          //   ),
+          // child: SfPdfViewer.network(
+          //   widget.pdfPath,
+          // ),
+          ),
     );
   }
 }
