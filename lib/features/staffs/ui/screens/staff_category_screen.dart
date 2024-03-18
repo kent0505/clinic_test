@@ -28,7 +28,7 @@ class _StaffCategoryState extends State<StaffCategory> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       var staffProvider = Provider.of<StaffProvider>(context, listen: false);
       staffProvider.getStaffListById();
     });

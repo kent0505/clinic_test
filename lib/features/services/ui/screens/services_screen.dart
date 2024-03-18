@@ -24,7 +24,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
+    WidgetsBinding.instance?.addPostFrameCallback(
       (timeStamp) {
         final staffProvider =
             Provider.of<ServiceProvider>(context, listen: false);

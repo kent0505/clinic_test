@@ -41,7 +41,7 @@ class MainDialog extends StatelessWidget {
                     child: Text(
                       title,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).canvasColor,

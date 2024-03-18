@@ -1,18 +1,18 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
 import 'package:sadykova_app/core/compoents/buttons/elevated_fill_button.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader.dart';
 import 'package:sadykova_app/core/logger/logger_impl.dart';
-import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/core/utils/asset_paths.dart';
+import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/core/utils/path_converter.dart';
 import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
@@ -34,7 +34,7 @@ class _GalleyPhotoScreenState extends State<GalleyPhotoScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       authProvider.getGalleyList();
     });

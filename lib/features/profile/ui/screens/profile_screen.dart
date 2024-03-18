@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/image/oval_avatar.dart';
 import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/core/utils/asset_paths.dart';
@@ -11,10 +11,10 @@ import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
 import 'package:sadykova_app/features/auth/ui/screens/need_auth_screer.dart';
-import 'package:sadykova_app/features/profile/ui/screens/analis_result_screen.dart';
 import 'package:sadykova_app/features/profile/ui/screens/current_record_screen.dart';
-import 'package:sadykova_app/features/profile/ui/screens/history_record_screen.dart';
 import 'package:sadykova_app/features/profile/ui/screens/prescription_screen.dart';
+import 'package:sadykova_app/features/profile/ui/screens/analis_result_screen.dart';
+import 'package:sadykova_app/features/profile/ui/screens/history_record_screen.dart';
 import 'package:sadykova_app/features/profile/ui/screens/profile_setting_screen.dart';
 import 'package:sadykova_app/features/profile/ui/screens/tax_request_screen.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/gallery_container.dart';
@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
 

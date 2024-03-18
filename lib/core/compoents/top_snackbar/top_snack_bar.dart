@@ -27,17 +27,17 @@ OverlayEntry? _previousEntry;
 /// If you will not pass it, it will try to get the current overlay state from
 /// passed [BuildContext]
 void showTopSnackBar(
-  BuildContext context,
-  Widget child, {
-  Duration showOutAnimationDuration = const Duration(milliseconds: 1200),
-  Duration hideOutAnimationDuration = const Duration(milliseconds: 550),
-  Duration displayDuration = const Duration(milliseconds: 3000),
-  double additionalTopPadding = 16.0,
-  VoidCallback? onTap,
-  OverlayState? overlayState,
-  double leftPadding = 16,
-  double rightPadding = 16,
-}) async {
+    BuildContext context,
+    Widget child, {
+      Duration showOutAnimationDuration = const Duration(milliseconds: 1200),
+      Duration hideOutAnimationDuration = const Duration(milliseconds: 550),
+      Duration displayDuration = const Duration(milliseconds: 3000),
+      double additionalTopPadding = 16.0,
+      VoidCallback? onTap,
+      OverlayState? overlayState,
+      double leftPadding = 16,
+      double rightPadding = 16,
+    }) async {
   overlayState ??= Overlay.of(context);
   late OverlayEntry overlayEntry;
   overlayEntry = OverlayEntry(
@@ -60,7 +60,7 @@ void showTopSnackBar(
   );
 
   _previousEntry?.remove();
-  overlayState.insert(overlayEntry);
+  overlayState?.insert(overlayEntry);
   _previousEntry = overlayEntry;
 }
 
@@ -135,20 +135,20 @@ class _TopSnackBarState extends State<TopSnackBar>
         reverseCurve: Curves.linearToEaseOut,
       ),
     )..addStatusListener((status) async {
-        if (status == AnimationStatus.completed) {
-          await Future.delayed(widget.displayDuration);
-          if (mounted) {
-            animationController.reverse();
-            setState(() {
-              topPosition = 0;
-            });
-          }
+      if (status == AnimationStatus.completed) {
+        await Future.delayed(widget.displayDuration);
+        if (mounted) {
+          animationController.reverse();
+          setState(() {
+            topPosition = 0;
+          });
         }
+      }
 
-        if (status == AnimationStatus.dismissed) {
-          widget.onDismissed.call();
-        }
-      });
+      if (status == AnimationStatus.dismissed) {
+        widget.onDismissed.call();
+      }
+    });
 
     if (mounted) {
       animationController.forward();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sadykova_app/core/compoents/functions/function.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_components/modal_header_photo.dart';
 import 'package:sadykova_app/core/compoents/utils/custom_line.dart';
@@ -32,7 +32,7 @@ class _EventModalBodyState extends State<EventModalBody> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
+    WidgetsBinding.instance?.addPostFrameCallback(
       (timeStamp) {
         final homeProvider = Provider.of<HomeProvider>(context, listen: false);
         homeProvider.getEventDetail(id: widget.model.id!);

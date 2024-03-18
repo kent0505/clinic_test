@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader_state.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/equipment_modal_body.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_modal_bottom.dart';
 import 'package:sadykova_app/features/main/domain/state/home_provider.dart';
 import 'package:sadykova_app/features/main/ui/widgets/equepment_card.dart';
+import 'package:provider/provider.dart';
 
 class EquepmentScreen extends StatefulWidget {
   const EquepmentScreen({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class _EquepmentScreenState extends State<EquepmentScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
+    WidgetsBinding.instance?.addPostFrameCallback(
       (timeStamp) {
         var homeProvider = Provider.of<HomeProvider>(context, listen: false);
         homeProvider.getEquipments();
@@ -112,10 +112,10 @@ class _EquepmentScreenState extends State<EquepmentScreen> {
   }
 
   Widget topInfo() {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: const [
         SizedBox(height: 16),
         Text(
           "Оборудование клиники \nDr. Sadykova",
