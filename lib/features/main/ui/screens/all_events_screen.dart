@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
 import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
@@ -9,12 +9,12 @@ import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/action
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/event_modal_body.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/news_modal_body.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_modal_bottom.dart';
+import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/features/main/domain/models/contact_model.dart';
 import 'package:sadykova_app/features/main/domain/state/home_provider.dart';
 import 'package:sadykova_app/features/main/ui/widgets/all_events_screen/actions_card.dart';
 import 'package:sadykova_app/features/main/ui/widgets/all_events_screen/event_cart.dart';
 import 'package:sadykova_app/features/main/ui/widgets/all_events_screen/news_card.dart';
-import 'package:sadykova_app/core/theme/colors.dart';
 
 class AllEvents extends StatefulWidget {
   const AllEvents({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _AllEventsState extends State<AllEvents>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
 
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var homeProvider = Provider.of<HomeProvider>(context, listen: false);
       homeProvider.getActions();
       homeProvider.getNews();

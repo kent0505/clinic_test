@@ -76,11 +76,11 @@ class DateModalSheetState extends State<DateModalSheet> {
                 color: kWhiteColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 16),
+              child: const Padding(
+                padding: EdgeInsets.only(top: 16, bottom: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     // buildCityItem("Казань"),
                     // const CustomLine(
                     //   color: kGreyScale500Color,

@@ -16,7 +16,7 @@ class _AboutUsModalBodyState extends State<AboutUsModalBody> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var homeProvider = Provider.of<HomeProvider>(context, listen: false);
       homeProvider.getPages();
     });

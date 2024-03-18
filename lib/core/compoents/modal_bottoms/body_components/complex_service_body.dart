@@ -317,10 +317,10 @@ class ComplexServiceBody extends StatelessWidget {
   }
 
   Widget buildRecordText() {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text(
           "Запись на консультацию",
           style: TextStyle(

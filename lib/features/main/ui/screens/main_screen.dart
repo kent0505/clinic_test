@@ -20,13 +20,13 @@ import 'package:sadykova_app/features/main/ui/screens/all_events_screen.dart';
 import 'package:sadykova_app/features/main/ui/screens/complex_service_screen.dart';
 import 'package:sadykova_app/features/main/ui/screens/equirpment_screen.dart';
 import 'package:sadykova_app/features/main/ui/screens/notification_screen.dart';
+import 'package:sadykova_app/features/main/ui/widgets/city_select_modal.dart';
 import 'package:sadykova_app/features/main/ui/widgets/main_screen/about_us_widget.dart';
 import 'package:sadykova_app/features/main/ui/widgets/main_screen/article_list_widget.dart';
 import 'package:sadykova_app/features/main/ui/widgets/main_screen/contact_widget.dart';
 import 'package:sadykova_app/features/main/ui/widgets/main_screen/see_all_widget.dart';
 import 'package:sadykova_app/features/main/ui/widgets/main_screen/slider_widget.dart';
 import 'package:sadykova_app/features/main/ui/widgets/main_screen/top_widget.dart';
-import 'package:sadykova_app/features/main/ui/widgets/city_select_modal.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/menu_widget.dart';
 import 'package:sadykova_app/features/services/domain/state/service_provider.dart';
 import 'package:sadykova_app/features/services/ui/screens/sub_group_screen.dart';
@@ -57,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback(
+    WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         final serviceProvider =
             Provider.of<ServiceProvider>(context, listen: false);
@@ -335,8 +335,8 @@ class _MainScreenState extends State<MainScreen> {
               const SizedBox(height: 16),
               ContactsWidget(
                 contactModel: homeProvider.contactsList,
-                mapWidget: Column(
-                  children: const [
+                mapWidget: const Column(
+                  children: [
                     // SizedBox(
                     //   width: MediaQuery.of(context).size.width,
                     //   height: 200,

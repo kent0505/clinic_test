@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/date_modal_sheet.dart';
-import 'package:provider/provider.dart';
-import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/record_card.dart';
 
 class CurrentRecordScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _CurrentRecordScreenState extends State<CurrentRecordScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       authProvider.getNewRecords();
     });

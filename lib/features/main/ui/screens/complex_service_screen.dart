@@ -23,7 +23,7 @@ class _ComplexServiceScreenState extends State<ComplexServiceScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var homeProvider = Provider.of<HomeProvider>(context, listen: false);
       homeProvider.getComplexService();
     });

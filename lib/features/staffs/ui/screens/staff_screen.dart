@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader_state.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/staff_modal_body.dart';
@@ -31,7 +31,7 @@ class _StaffsScreenState extends State<StaffsScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var staffProvider = Provider.of<StaffProvider>(context, listen: false);
       staffProvider.getListOfStaffGroups();
       staffProvider.getStaffList();

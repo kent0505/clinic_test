@@ -20,7 +20,7 @@ class PinPutWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
       height: 48,
-      textStyle: Theme.of(context).textTheme.subtitle2!,
+      textStyle: Theme.of(context).textTheme.titleSmall!,
       decoration: BoxDecoration(
         color: kWhiteColor,
         borderRadius: BorderRadius.circular(10),
@@ -36,9 +36,9 @@ class PinPutWidget extends StatelessWidget {
     final focusedPinTheme = submittedPinTheme.copyDecorationWith();
     final errorPinTheme = defaultPinTheme.copyWith(
       decoration: BoxDecoration(
-        color: Theme.of(context).errorColor.withOpacity(0.1),
+        color: Theme.of(context).colorScheme.error.withOpacity(0.1),
         border: Border.all(
-          color: Theme.of(context).errorColor,
+          color: Theme.of(context).colorScheme.error,
         ),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -80,7 +80,7 @@ class PinPutWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 4),
                   child: Icon(
                     Icons.close,
-                    color: Theme.of(context).errorColor,
+                    color: Theme.of(context).colorScheme.error,
                     size: 16,
                   ),
                 ),

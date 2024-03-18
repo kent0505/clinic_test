@@ -27,7 +27,7 @@ class InfoDialog extends StatelessWidget {
             margin: const EdgeInsets.only(top: 30, bottom: 30),
             child: Text(
               text,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: kGreyScale700Color,

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:sadykova_app/core/compoents/buttons/elevated_fill_button.dart';
 import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/core/utils/asset_paths.dart';
@@ -52,7 +51,7 @@ class _GalleryContainerState extends State<GalleryContainer> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -60,7 +59,7 @@ class _GalleryContainerState extends State<GalleryContainer> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           "Галерея фото",
                           style: TextStyle(

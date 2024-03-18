@@ -36,9 +36,9 @@ class ElevatedFillButton extends StatelessWidget {
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           minimumSize: Size.zero,
+          backgroundColor: buttonColor,
           elevation: elevation,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          primary: buttonColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(mainBorderRadius),
           ),
