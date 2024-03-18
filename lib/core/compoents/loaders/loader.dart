@@ -12,11 +12,13 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTheme(
-      data: CupertinoTheme.of(context).copyWith(brightness: Brightness.light),
-      child: CupertinoActivityIndicator(
-        radius: radius,
-        color: white ? const Color(0xffffffff) : const Color(0xff66788C),
+    return Center(
+      child: CupertinoTheme(
+        data: CupertinoTheme.of(context).copyWith(brightness: Brightness.light),
+        child: CupertinoActivityIndicator(
+          radius: radius,
+          color: white ? const Color(0xffffffff) : const Color(0xff66788C),
+        ),
       ),
     );
   }

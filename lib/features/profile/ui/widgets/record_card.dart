@@ -47,7 +47,7 @@ class RecordCard extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: Text(
-                        DateConverter.convertStringToDate(model.datetime ?? ''),
+                        DateConverter.convertStringToDate('22.06.2000'),
                         style: const TextStyle(
                           color: Color(0xFF66788C),
                           fontSize: 18,

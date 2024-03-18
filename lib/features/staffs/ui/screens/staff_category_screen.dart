@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader_state.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/staff_modal_body.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/main_modal_bottom.dart';
-import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/features/staffs/domain/models/staff_group_model.dart';
 import 'package:sadykova_app/features/staffs/domain/models/staff_model.dart.dart';
 import 'package:sadykova_app/features/staffs/domain/state/staff_provider.dart';
@@ -23,8 +23,6 @@ class StaffCategory extends StatefulWidget {
 }
 
 class _StaffCategoryState extends State<StaffCategory> {
-  final scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
@@ -38,12 +36,11 @@ class _StaffCategoryState extends State<StaffCategory> {
   Widget build(BuildContext context) {
     final staffProvider = Provider.of<StaffProvider>(context);
 
-    if (staffProvider.loading) {
+    if (staffProvider.loading2) {
       return const LoaderState();
     }
 
     return Scaffold(
-      backgroundColor: kBgColor,
       appBar: customAppBar(
         () {
           Navigator.pop(context);
@@ -57,15 +54,22 @@ class _StaffCategoryState extends State<StaffCategory> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: CustomScrollView(
-          controller: scrollController,
-          physics: const AlwaysScrollableScrollPhysics(),
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 16, bottom: 70),
-              sliver: SliverGrid.count(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (!staffProvider.loading2 &&
+              staffProvider.staffListById.isEmpty) ...[
+            const NoDataWidget()
+          ] else ...[
+            Expanded(
+              child: GridView.count(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  top: 16,
+                  right: 16,
+                  bottom: 66,
+                ),
                 crossAxisCount: 2,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
@@ -73,14 +77,8 @@ class _StaffCategoryState extends State<StaffCategory> {
                 children: createStaffs(staffProvider),
               ),
             ),
-            if (staffProvider.staffListById.isEmpty)
-              const SliverToBoxAdapter(
-                child: Center(
-                  child: Text('Нет элементов :('),
-                ),
-              ),
           ],
-        ),
+        ],
       ),
     );
   }

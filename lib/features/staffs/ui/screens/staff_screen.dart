@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:sadykova_app/core/compoents/loaders/loader.dart';
 import 'package:sadykova_app/core/compoents/loaders/loader_state.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/staff_modal_body.dart';
 import 'package:sadykova_app/core/compoents/modal_bottoms/body_components/webview_modal_body.dart';
@@ -64,60 +62,56 @@ class _StaffsScreenState extends State<StaffsScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: staffProvider.filteredStaffList.isEmpty
-            ? const Center(child: Loader())
-            : RefreshIndicator(
-                color: const Color(0xff66788C),
-                onRefresh: () async {
-                  await staffProvider.getListOfStaffGroups();
-                  await staffProvider.getStaffList();
-                },
-                child: ListView(
-                  children: [
-                    const SizedBox(height: 40),
-                    Row(
-                      children: [
-                        SvgPicture.asset(darkLogo),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      "Направления \nи специалисты",
-                      style: TextStyle(
-                        color: Color(0xff66788C),
-                        fontSize: 27,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Montserrat-b',
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                    SearchTextField(
-                      controller: searchController,
-                      onChanged: (String value) {
-                        staffProvider.filterStaff(filter: value);
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    filterCategoryWidget(staffProvider),
-                    const SizedBox(height: 32),
-                    GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                      childAspectRatio: 0.6,
-                      children: createStaffs(
-                        staffProvider.filteredStaffList,
-                        staffProvider,
-                      ),
-                    ),
-                    const SizedBox(height: 66),
-                  ],
-                ),
+      body: RefreshIndicator(
+        color: const Color(0xff66788C),
+        onRefresh: () async {
+          await staffProvider.getListOfStaffGroups();
+          await staffProvider.getStaffList();
+        },
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: [
+            const SizedBox(height: 40),
+            Row(
+              children: [
+                SvgPicture.asset(darkLogo),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              "Направления \nи специалисты",
+              style: TextStyle(
+                color: Color(0xff66788C),
+                fontSize: 27,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Montserrat-b',
               ),
+            ),
+            const SizedBox(height: 14),
+            SearchTextField(
+              controller: searchController,
+              onChanged: (String value) {
+                staffProvider.filterStaff(filter: value);
+              },
+            ),
+            const SizedBox(height: 20),
+            filterCategoryWidget(staffProvider),
+            const SizedBox(height: 32),
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              childAspectRatio: 0.6,
+              children: createStaffs(
+                staffProvider.filteredStaffList,
+                staffProvider,
+              ),
+            ),
+            const SizedBox(height: 66),
+          ],
+        ),
       ),
     );
   }
@@ -132,11 +126,15 @@ class _StaffsScreenState extends State<StaffsScreen> {
           onTap: () {
             staffProvider.groupId = staffProvider.staffGroupList[index].id!;
             staffProvider.getStaffListById();
-            pushNewScreen(
+
+            Navigator.push(
               context,
-              withNavBar: true,
-              screen: StaffCategory(
-                staffGrouModel: staffProvider.staffGroupList[index],
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return StaffCategory(
+                    staffGrouModel: staffProvider.staffGroupList[index],
+                  );
+                },
               ),
             );
           },
