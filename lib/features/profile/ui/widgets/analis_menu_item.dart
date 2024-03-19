@@ -30,8 +30,8 @@ class AnalisMenuItem extends StatelessWidget {
                 Container(
                   width: 40,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    color: Color(0xff66788C),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff66788C).withOpacity(0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Center(

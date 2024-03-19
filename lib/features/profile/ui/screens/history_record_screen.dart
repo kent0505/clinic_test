@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
-import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
-import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
-import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
-import 'package:sadykova_app/features/profile/ui/widgets/date_modal_sheet.dart';
 import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
+import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
+import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/record_card.dart';
 
 class HistoryRecordScreen extends StatefulWidget {
@@ -27,7 +25,8 @@ class _HistoryRecordScreenState extends State<HistoryRecordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
+
     if (authProvider.loading) {
       return const LoaderScreen();
     }
@@ -47,43 +46,21 @@ class _HistoryRecordScreenState extends State<HistoryRecordScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: authProvider.orldRecordModel.isEmpty
-            ? const NoDataWidget()
-            : ListView.builder(
-                itemCount: authProvider.orldRecordModel.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: RecordCard(
-                        model: authProvider.orldRecordModel[index],
-                        isCurrent: false,
-                      ),
-                    ),
-                  );
-                },
-              ),
-      ),
+      body: authProvider.orldRecordModel.isEmpty
+          ? const NoDataWidget()
+          : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: authProvider.orldRecordModel.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: RecordCard(
+                    model: authProvider.orldRecordModel[index],
+                    isCurrent: false,
+                  ),
+                );
+              },
+            ),
     );
-  }
-
-  void openDateModal(UserProvider provider) async {
-    var result = await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      elevation: 0,
-      useRootNavigator: true,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return const DateModalSheet();
-      },
-    );
-    provider.changeFirsetInit();
-    if (result != null) {
-      provider.setSelectedCity(result.toString());
-    }
   }
 }

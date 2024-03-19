@@ -5,10 +5,8 @@ import 'package:sadykova_app/core/utils/asset_paths.dart';
 import 'package:sadykova_app/core/theme/colors.dart';
 import 'package:sadykova_app/core/utils/date_converter.dart';
 import 'package:sadykova_app/core/utils/path_converter.dart';
-import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
 import 'package:sadykova_app/features/profile/domain/models/analize.dart';
 import 'package:sadykova_app/features/profile/ui/screens/pdf_view_screen.dart';
-import 'package:sadykova_app/features/profile/ui/widgets/date_modal_sheet.dart';
 
 class DetailAnalisScreen extends StatefulWidget {
   const DetailAnalisScreen({
@@ -23,8 +21,6 @@ class DetailAnalisScreen extends StatefulWidget {
 }
 
 class _DetailAnalisScreenState extends State<DetailAnalisScreen> {
-  final scrollController = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +31,7 @@ class _DetailAnalisScreenState extends State<DetailAnalisScreen> {
         },
         title: Text(
           widget.analisModel.laboratory ?? '',
+          maxLines: 2,
           style: const TextStyle(
             color: Color(0xff415164),
             fontSize: 17,
@@ -43,61 +40,36 @@ class _DetailAnalisScreenState extends State<DetailAnalisScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 16),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Text(
-                        //   widget.analisModel.laboratory ?? '',
-                        //   style: const TextStyle(
-                        //     color: Color(0xff66788C),
-                        //     fontSize: 27,
-                        //     fontWeight: FontWeight.w700,
-                        //     fontFamily: 'Montserrat-b',
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 4),
-                        const Text(
-                          "Готов результат",
-                          style: TextStyle(
-                            color: Color(0xff41B62E),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        InkWell(
-                          onTap: () {
-                            pushNewScreen(
-                              context,
-                              screen: PdfViewScreen(
-                                pdfPath: ImagePathConvertor.convertTopaht(
-                                  path: widget.analisModel.path ?? '',
-                                ),
-                                tittle: widget.analisModel.laboratory ?? '',
-                              ),
-                            );
-                          },
-                          child: buildPDFCard(),
-                        ),
-                        const SizedBox(height: 22),
-                        buildListOfItems(widget.analisModel),
-                      ],
-                    );
-                  },
-                  childCount: 1,
-                ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Готов результат",
+              style: TextStyle(
+                color: Color(0xff41B62E),
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
               ),
             ),
+            const SizedBox(height: 22),
+            InkWell(
+              onTap: () {
+                pushNewScreen(
+                  context,
+                  screen: PdfViewScreen(
+                    pdfPath: ImagePathConvertor.convertTopaht(
+                      path: widget.analisModel.path ?? '',
+                    ),
+                    tittle: widget.analisModel.laboratory ?? '',
+                  ),
+                );
+              },
+              child: buildPDFCard(),
+            ),
+            const SizedBox(height: 22),
+            buildListOfItems(widget.analisModel),
           ],
         ),
       ),
@@ -207,22 +179,5 @@ class _DetailAnalisScreenState extends State<DetailAnalisScreen> {
         ),
       ),
     );
-  }
-
-  void openDateModal(UserProvider provider) async {
-    var result = await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      elevation: 0,
-      useRootNavigator: true,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return const DateModalSheet();
-      },
-    );
-    provider.changeFirsetInit();
-    if (result != null) {
-      provider.setSelectedCity(result.toString());
-    }
   }
 }

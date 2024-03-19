@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
+import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
 import 'package:sadykova_app/features/profile/ui/screens/detail_analis_screen.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/analis_menu_item.dart';
-import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 
 class AnalisResultScreen extends StatefulWidget {
   const AnalisResultScreen({Key? key}) : super(key: key);
@@ -48,32 +48,30 @@ class _AnalisResultScreenState extends State<AnalisResultScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: authProvider.analisList.isEmpty
-            ? const NoDataWidget()
-            : ListView.builder(
-                itemCount: authProvider.analisList.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      pushNewScreen(
-                        context,
-                        screen: DetailAnalisScreen(
-                          analisModel: authProvider.analisList[index],
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: AnalisMenuItem(
-                        model: authProvider.analisList[index],
+      body: authProvider.analisList.isEmpty
+          ? const NoDataWidget()
+          : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: authProvider.analisList.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      screen: DetailAnalisScreen(
+                        analisModel: authProvider.analisList[index],
                       ),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: AnalisMenuItem(
+                      model: authProvider.analisList[index],
                     ),
-                  );
-                },
-              ),
-      ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }

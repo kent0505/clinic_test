@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
-import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
-import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
-import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
-import 'package:sadykova_app/features/profile/ui/widgets/date_modal_sheet.dart';
 import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
+import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
+import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/record_card.dart';
 
 class CurrentRecordScreen extends StatefulWidget {
@@ -54,35 +52,15 @@ class _CurrentRecordScreenState extends State<CurrentRecordScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: authProvider.newRecordmodel.length,
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: RecordCard(
-                      model: authProvider.newRecordmodel[index],
-                      isCurrent: true,
-                    ),
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: RecordCard(
+                    model: authProvider.newRecordmodel[index],
+                    isCurrent: true,
                   ),
                 );
               },
             ),
     );
-  }
-
-  void openDateModal(UserProvider provider) async {
-    var result = await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      elevation: 0,
-      useRootNavigator: true,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return const DateModalSheet();
-      },
-    );
-    provider.changeFirsetInit();
-    if (result != null) {
-      provider.setSelectedCity(result.toString());
-    }
   }
 }

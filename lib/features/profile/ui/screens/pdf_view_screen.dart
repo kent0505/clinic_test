@@ -82,16 +82,16 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
           ),
         ),
       ),
-      body: SizedBox(
-          //   child: const PDF().cachedFromUrl(
-          //     widget.pdfPath,
-          //     placeholder: (double progress) => Center(child: Text('$progress %')),
-          //     errorWidget: (dynamic error) => Center(child: Text(error.toString())),
-          //   ),
-          // child: SfPdfViewer.network(
-          //   widget.pdfPath,
-          // ),
-          ),
+      // body: const SizedBox(
+      //   child: const PDF().cachedFromUrl(
+      //     widget.pdfPath,
+      //     placeholder: (double progress) => Center(child: Text('$progress %')),
+      //     errorWidget: (dynamic error) => Center(child: Text(error.toString())),
+      //   ),
+      // child: SfPdfViewer.network(
+      //   widget.pdfPath,
+      // ),
+      // ),
     );
   }
 }
