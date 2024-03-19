@@ -58,6 +58,13 @@ class StaffProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _loading2 = false;
+  bool get loading2 => _loading2;
+  set loading2(bool flag) {
+    _loading2 = flag;
+    notifyListeners();
+  }
+
   ///[staff_loading]
   bool _staffLoading = false;
   bool get staffLoading => _staffLoading;
@@ -114,7 +121,7 @@ class StaffProvider extends ChangeNotifier {
   Future<void> getStaffListById() async {
     try {
       clearError();
-      loading = true;
+      loading2 = true;
       var result = await repository.getListOfStaffbyGroupId(groupId: groupId);
       result.fold(
         (left) {
@@ -127,7 +134,7 @@ class StaffProvider extends ChangeNotifier {
     } catch (error) {
       log("Erorr $error");
     } finally {
-      loading = false;
+      loading2 = false;
       notifyListeners();
     }
   }

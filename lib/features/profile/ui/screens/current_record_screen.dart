@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/custom_app_bar.dart';
 import 'package:sadykova_app/features/auth/domain/state/auth_provider.dart';
 import 'package:sadykova_app/features/auth/domain/state/user_provider.dart';
 import 'package:sadykova_app/features/auth/ui/screens/loader_screen.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/date_modal_sheet.dart';
-import 'package:provider/provider.dart';
 import 'package:sadykova_app/core/compoents/appBar/no_data_widget.dart';
 import 'package:sadykova_app/features/profile/ui/widgets/record_card.dart';
 
@@ -48,29 +48,24 @@ class _CurrentRecordScreenState extends State<CurrentRecordScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: authProvider.newRecordmodel.isEmpty
-            ? const NoDataWidget()
-            : ListView.builder(
-                itemCount: authProvider.newRecordmodel.length,
-                itemBuilder: (context, index) {
-                  if (authProvider.newRecordmodel.isEmpty) {
-                    return const NoDataWidget();
-                  }
-                  return InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: RecordCard(
-                        model: authProvider.newRecordmodel[index],
-                        isCurrent: true,
-                      ),
+      body: authProvider.newRecordmodel.isEmpty
+          ? const NoDataWidget()
+          : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: authProvider.newRecordmodel.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: RecordCard(
+                      model: authProvider.newRecordmodel[index],
+                      isCurrent: true,
                     ),
-                  );
-                },
-              ),
-      ),
+                  ),
+                );
+              },
+            ),
     );
   }
 

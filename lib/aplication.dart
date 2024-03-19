@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -50,6 +51,12 @@ class _ApplicationState extends State<Application> {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
