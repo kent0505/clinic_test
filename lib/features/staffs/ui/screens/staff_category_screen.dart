@@ -11,10 +11,8 @@ import 'package:sadykova_app/features/staffs/domain/state/staff_provider.dart';
 import 'package:sadykova_app/features/staffs/ui/widgets/staff_card.dart';
 
 class StaffCategory extends StatefulWidget {
-  const StaffCategory({
-    Key? key,
-    required this.staffGrouModel,
-  }) : super(key: key);
+  const StaffCategory({Key? key, required this.staffGrouModel})
+      : super(key: key);
 
   final StaffGroupModel staffGrouModel;
 
