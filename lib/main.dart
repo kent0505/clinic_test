@@ -10,4 +10,5 @@ void main() async {
   await dotenv.load(fileName: '.env');
   runApp(const Application());
 }
+
 // fvm 2.10.2
